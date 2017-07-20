@@ -1,0 +1,619 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+Resource          ../../MAP/用户群查询页面.txt
+Resource          ../../MAP/用户群设置添加模板页面.txt
+
+*** Test Cases ***
+消息推送平台-用户群配置-110 验证选择用户状态-手机贷-单期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，手机贷-单期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是手机贷-单期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-分期贷}
+    Unselect Checkbox    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    手机贷单期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    手机贷单期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-111 验证选择用户状态-手机贷-分期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，手机贷-分期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是手机贷-分期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-单期贷}
+    Unselect Checkbox    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    手机贷分期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    手机贷分期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-112 验证选择用户状态-手机贷-闪电贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，手机贷-闪电贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是手机贷-闪电贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-分期贷}
+    Unselect Checkbox    ${选择产品-单期贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    手机贷闪电沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    手机贷闪电沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-113 验证选择用户状态-手机贷-全产品-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，手机贷-全产品
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是手机贷-全产品的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    手机贷全产品沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    手机贷全产品沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-114 验证选择用户状态-U族-单期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，U族-单期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是U族-单期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-U族}
+    Click Element    ${选择产线-U族}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-分期贷}
+    Unselect Checkbox    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    U组单期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    U组单期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-115 验证选择用户状态-U族-分期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，U族-分期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是U族-分期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-U族}
+    Click Element    ${选择产线-U族}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-单期贷}
+    Unselect Checkbox    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    U族分期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    U族分期沉睡用户
+    Comment    sleep    2s
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-116 验证选择用户状态-U族-闪电贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，U族-闪电贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是U族-闪电贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-U族}
+    Click Element    ${选择产线-U族}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Unselect Checkbox    ${选择产品-单期贷}
+    Unselect Checkbox    ${选择产品-分期贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    U族闪电沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    U族闪电沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-117 验证选择用户状态-U族-全产品-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，U族-全产品
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是U族-全产品的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-U族}
+    Click Element    ${选择产线-U族}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-闪电贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    U族全产品沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    U族全产品沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-118 验证选择用户状态-应花分期-教育分期-对外H5合作-雷龙-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-教育分期
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-教育分期的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Unselect Checkbox    ${选择产品-租房分期}
+    Unselect Checkbox    ${选择产品-应花商城}
+    Unselect Checkbox    ${选择产品-奢分期}
+    Unselect Checkbox    ${选择产品-海尔家电分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花教育沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花教育沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-119 验证选择用户状态-应花分期-租房分期-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-租房分期
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-租房分期的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Unselect Checkbox    ${选择产品-教育分期}
+    Unselect Checkbox    ${选择产品-应花商城}
+    Unselect Checkbox    ${选择产品-奢分期}
+    Unselect Checkbox    ${选择产品-海尔家电分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花租房沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花租房沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-120 验证选择用户状态-应花分期-应花商城分期-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-应花商城分期
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-应花商城分期的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Unselect Checkbox    ${选择产品-教育分期}
+    Unselect Checkbox    ${选择产品-租房分期}
+    Unselect Checkbox    ${选择产品-奢分期}
+    Unselect Checkbox    ${选择产品-海尔家电分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花商城沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花商城沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-121 验证选择用户状态-应花分期-对外API合作-奢分期-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-奢分期
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-奢分期的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Unselect Checkbox    ${选择产品-教育分期}
+    Unselect Checkbox    ${选择产品-租房分期}
+    Unselect Checkbox    ${选择产品-应花商城}
+    Unselect Checkbox    ${选择产品-海尔家电分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花奢分期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花奢分期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-122 验证选择用户状态-应花分期-对外API合作-海尔家电分期-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-海尔家电分期
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-海尔家电分期的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Unselect Checkbox    ${选择产品-教育分期}
+    Unselect Checkbox    ${选择产品-租房分期}
+    Unselect Checkbox    ${选择产品-应花商城}
+    Unselect Checkbox    ${选择产品-奢分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花海尔沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花海尔沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-123 验证选择用户状态-应花分期-全产品-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，应花分期-全产品
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是应花分期-全产品的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-应花分期}
+    Click Element    ${选择产线-应花分期}
+    Checkbox Should Be Selected    ${选择产品-教育分期}
+    Checkbox Should Be Selected    ${选择产品-租房分期}
+    Checkbox Should Be Selected    ${选择产品-应花商城}
+    Checkbox Should Be Selected    ${选择产品-奢分期}
+    Checkbox Should Be Selected    ${选择产品-海尔家电分期}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    应花全产品沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    应花全产品沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-124 验证选择用户状态-卡宜贷-单期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，卡宜贷-单期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是卡宜贷-单期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-卡宜贷}
+    Click Element    ${选择产线-卡宜贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Unselect Checkbox    ${选择产品-分期贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    卡宜贷单期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    卡宜贷单期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-125 验证选择用户状态-卡宜贷-分期贷-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，卡宜贷-分期贷
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是卡宜贷-分期贷的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-卡宜贷}
+    Click Element    ${选择产线-卡宜贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Unselect Checkbox    ${选择产品-单期贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    卡宜贷分期沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    卡宜贷分期沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser
+
+消息推送平台-用户群配置-126 验证选择用户状态-卡宜贷-全产品-沉睡用户结果正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.正常进入消息推送平台
+    ...    【操作步骤】：1.进入用户群设置页面，卡宜贷-全产品
+    ...    2.点击选择用户状态的下拉框选中沉睡用户
+    ...    3.注册渠道选择：iOS、Android、微站、流量超市 全部选中
+    ...    4.设置快速模板名称和分组百分比，保存模板
+    ...    【预期结果】：1.T+1天后在数据库查询该模板下的对应数据，数据是卡宜贷-全产品的全渠道并且是沉睡用户。（该模板下查询到的数据与手工从大数据获取的数据对比）
+    到达用户群设置页面
+    Wait Until Page Contains Element    ${添加模板按钮}
+    Click Element    ${添加模板按钮}
+    Wait Until Page Contains Element    ${选择产线-卡宜贷}
+    Click Element    ${选择产线-卡宜贷}
+    Checkbox Should Be Selected    ${选择产品-单期贷}
+    Checkbox Should Be Selected    ${选择产品-分期贷}
+    Select From List By Value    ${用户状态-下拉列表}    user_sleep_days
+    ${time_start}    get time    \    NOW - 1d
+    ${time_end}    get time    \    NOW + 1d
+    Input Text    ${时间范围-开始时间}    ${time_start}
+    Input Text    ${时间范围-截止时间}    ${time_end}
+    Input Text    ${设置快速模板名称-输入框}    卡宜贷全产品沉睡用户
+    Select Checkbox    ${用户中设置为参照组的百分比-选择框}
+    Wait Until Page Contains Element    ${用户中设置为参照组的百分比-输入框}
+    Input Text    ${用户中设置为参照组的百分比-输入框}    ${参照组百分比}
+    Click Element    ${保存模板按钮}
+    Wait Until Page Contains    执行成功
+    Click Element    ${保存模板-确定按钮}
+    Element Text Should Be    ${第一个模板-模板名称}    卡宜贷全产品沉睡用户
+    Comment    Click Button    ${第一个模板-删除按钮}
+    Comment    Wait Until Page Contains Element    ${删除模板-确认按钮}
+    Comment    Click Element    ${删除模板-确认按钮}
+    [Teardown]    Close Browser

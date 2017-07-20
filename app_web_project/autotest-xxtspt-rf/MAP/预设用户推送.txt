@@ -1,0 +1,33 @@
+*** Variables ***
+${预设用户推送}         id=menuItem2    # //*[@id="sidebarMenu"]/li[3]/a \
+${消息描述输入框}        id=msgCon
+${消息描述后感叹号}       xpath=//*[@id="templateList"]/div/div/div[1]/div[2]/label[3]/span
+${感叹号内容}          xpath=//*[@id="templateList"]/div/div/div[1]/div[2]/label[4]
+${用户群模板输入框}       id=useTemplate
+${选择用户群按钮}        id=useTemplatebtn
+${推送方式框}          id=pushType
+${结束时间关闭按钮}       xpath=//*[@id="ui-datepicker-div"]/div[3]/button[2]
+${发送开始时间}         id=beginTime
+${发送结束时间}         id=end_time
+${消息模板输入框}        name=pushTemplate
+${测试手机号输入框}       name=phone
+${测试发送按钮}         id=testsend
+${执行按钮}           id=sendbtn    # //*[@id="templateList"]/div/div/div[9]/div[2]/button
+${重置按钮}           id=conReset
+${用户群模板title}     用户群快速模板选择
+${用户群列表}          xpath=//*[@id="table"]/tbody
+${用户群列表第一个ON/OFF开关}    xpath=//*[@id="table"]/tbody/tr[1]/td[4]/label/label
+${用户群确定按钮}        id=besurebtn
+${用户群列表左箭头}       xpath=//*[@id="table"]/tfoot/tr/td/nav/ul/li[3]/a
+${用户群列表右箭头}       xpath=//*[@id="table"]/tfoot/tr/td/nav/ul/li[10]/a
+${用户群模板名称}        xpath=//*[@id="table"]/tbody/tr[1]/td[3]
+${第二页数字2}         xpath=//*[@id="table"]/tfoot/tr/td/nav/ul/li[5]/a
+${用户群名称2}         xpath=//*[@id="table"]/tbody/tr[2]/td[3]
+${第二个ON/OFF开关}    xpath=//*[@id="table"]/tbody/tr[2]/td[4]/label/label
+${第一页第一个时间}       xpath=//*[@id="table"]/tbody/tr[1]/td[2]
+${跳转主页}           xpath=//*[@id="templateList"]/div/div/div[3]/div[2]/label[3]
+${跳转活动地址}         xpath=//*[@id="templateList"]/div/div/div[3]/div[2]/label[3]/label
+${输入活动地址}         id=jumpUrl
+${重置弹框内容}         id=alertMsg_info
+${重置弹框取消}         id=alertMsg_btn2
+${重置弹框确定}         id=alertMsg_btn1    # 和点击执行弹框一个id值

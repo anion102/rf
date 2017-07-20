@@ -1,0 +1,40 @@
+*** Settings ***
+Resource          ../../config/消息任务列表.txt
+Resource          ../../config/公共资源.txt
+
+*** Test Cases ***
+消息推送平台-消息任务列表-005 验证开始时间大于结束时间-提示正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击时间的控件按钮，开始时间大于结束时间
+    ...    【预期结果】：1.校验开始时间必须小于结束时间，不符合时红字提示：开始时间必须小于结束时间
+    进入消息任务列表页面
+    input text    ${任务提交时间框}    ${任务结束时间}
+    input text    ${任务结束时间框}    ${任务提交时间}
+    click element    ${结束时间关闭按钮}
+    sleep    1
+    click element    ${查询按钮}
+    wait until page contains element    ${弹框内容}
+    ${text}    get text    ${弹框内容}
+    should be equal    ${text}    ${时间弹框提醒}
+    click element    ${弹框确定按钮}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-006 验证开始时间等于结束时间-提示正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击时间的控件按钮，开始时间等于结束时间
+    ...    【预期结果】：1.校验开始时间必须小于结束时间，不符合时红字提示：开始时间必须小于结束时间
+    进入消息任务列表页面
+    input text    ${任务提交时间框}    ${任务结束时间}
+    input text    ${任务结束时间框}    ${任务结束时间}
+    click element    ${结束时间关闭按钮}
+    sleep    1
+    click element    ${查询按钮}
+    wait until page contains element    ${弹框内容}
+    ${text}    get text    ${弹框内容}
+    should be equal    ${text}    ${时间弹框提醒}
+    click element    ${弹框确定按钮}
+    [Teardown]    close browser

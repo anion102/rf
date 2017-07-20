@@ -1,0 +1,61 @@
+*** Settings ***
+Suite Teardown
+Resource          ../../config/公共资源.txt
+Resource          ../../config/预设用户公共资源.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-013 验证预定发送时间-前晚于后-提示正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...
+    ...    2.预定时间前者比后者晚，其他填写完整
+    ...
+    ...    3.点击“执行”按钮
+    ...
+    ...    【预期结果】：3.有相关提示：开始时间不能晚于结束时间
+    登录
+    到达预设用户推送页面
+    input text    ${消息描述输入框}    ${消息描述内容}
+    选择用户群
+    select from list by value    ${推送方式框}    jpush
+    sleep    1
+    input text    ${输入活动地址}    ${活动地址}
+    input text    ${发送开始时间}    ${结束时间}
+    input text    ${发送结束时间}    ${发送时间}
+    click element    ${结束时间关闭按钮}
+    input text    ${消息模板输入框}    ${消息NID}
+    ${phone}    create phone
+    input text    ${测试手机号输入框}    ${phone}
+    click element    ${执行按钮}
+    wait until page contains element    ${重置弹框内容}    10
+    ${info}    get text    ${重置弹框内容}
+    should be equal    ${info}    ${结束时间需大于开始时间}
+    click element    ${重置弹框确定}
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-014 验证预定发送时间-前等于后-提示正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.预定时间前者等于后者，其他填写完整
+    ...    3.点击“执行”按钮
+    ...    【预期结果】：3.有相关提示：开始时间不能与结束时间相同
+    登录
+    到达预设用户推送页面
+    input text    ${消息描述输入框}    ${消息描述内容}
+    选择用户群
+    sleep    1
+    input text    ${输入活动地址}    ${活动地址}
+    input text    ${发送开始时间}    ${结束时间}
+    input text    ${发送结束时间}    ${结束时间}
+    click element    ${消息模板输入框}
+    click element    ${执行按钮}
+    wait until page contains element    ${重置弹框内容}    10
+    ${info}    get text    ${重置弹框内容}
+    should be equal    ${info}    ${结束时间需大于开始时间}
+    click element    ${重置弹框确定}
+    [Teardown]    close browser

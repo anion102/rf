@@ -1,0 +1,106 @@
+*** Settings ***
+Suite Teardown
+Resource          ../../config/公共资源.txt
+Resource          ../../config/预设用户公共资源.txt
+Resource          ../../VAR/JavaScript_element.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-002 验证用户模板名称-选择用户群-弹框正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.在用户模板名称部分点击 选择用户群
+    ...    【预期结果】：2.页面弹出浮动层，显示已经存在的预设用户群
+    登录
+    到达预设用户推送页面
+    click button    ${选择用户群按钮}
+    wait until page contains    ${用户群模板title}
+    comment    查询数据库用户群列表信息
+    ${rsp}    数据库执行SQL    ${sql_host}    SELECT * FROM t_user_template WHERE STATUS=1 AND temp_type =1 AND template_name IS NOT NULL ORDER BY create_time DESC LIMIT 10    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    log    ${rsp}
+    comment    验证页面数据和数据库获取一致
+    sleep    1
+    ${table}    get text    ${用户群列表}
+    ${element}    yhq str parse    ${table}
+    ${i}    set variable    ${0}
+    : FOR    ${n}    IN    @{element}
+    \    log    ${n}
+    \    should be equal    ${n}    ${rsp[${i}][-8]}
+    \    ${i}    evaluate    ${i}+1
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-003 验证用户模板名称-选择用户群-预设用户群显示-正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.在用户模板名称部分点击 选择用户群
+    ...    3.选择某条模板，点击模板名称右侧的ON/OFF开关
+    ...    4.点击右下角的“确定”按钮
+    ...    【预期结果】：2.页面弹出浮动层，显示已经存在的预设用户群
+    ...    3.开关变为ON状态
+    ...    4.页面关闭，用户模板名称处显示已选择的模板名称
+    登录
+    到达预设用户推送页面
+    click button    ${选择用户群按钮}
+    wait until page contains element    ${用户群列表第一个ON/OFF开关}
+    #    选择用户群模板点击on/off开关
+    click element    ${用户群列表第一个ON/OFF开关}
+    ${text1}=    get text    ${用户群模板名称}
+    click element    ${用户群确定按钮}
+    ${text2}=    execute javascript    return document.getElementById("${user_template_field}").value
+    should be equal    ${text1}    ${text2}
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-004 验证用户模板名称-选择用户群-预设用户群页面跳转-正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.在用户模板名称部分点击 选择用户群
+    ...    3.查看弹出的用户群列表
+    ...    4.分别点击右、左箭头、输入页码，查看页面跳转
+    ...    【预期结果】：4.用户群能够对应跳转正确
+    登录
+    到达预设用户推送页面
+    click button    ${选择用户群按钮}
+    wait until page contains element    ${第一页第一个时间}
+    ${time}    get text    ${第一页第一个时间}
+    log    ${time}
+    click element    ${第二页数字2}
+    sleep    1
+    ${time1}    get text    ${第一页第一个时间}
+    log    ${time1}
+    click element    ${用户群列表右箭头}
+    sleep    1
+    click element    ${用户群列表左箭头}
+    sleep    1
+    click element    ${用户群列表左箭头}
+    sleep    1
+    ${time2}    get text    ${第一页第一个时间}
+    log    ${time2}
+    should not be equal    ${time}    ${time1}
+    should be equal    ${time}    ${time2}
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-005 验证用户模板名称-选择用户群-选择后修改-显示正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.在用户模板名称部分点击 选择用户群
+    ...    3.在弹出的用户群列表中选择某个模板
+    ...    4.再次点击选择用户群 选择另一个模板
+    ...    【预期结果】：4.用户模板输入框显示最新选择的模板的名称
+    登录
+    到达预设用户推送页面
+    click button    ${选择用户群按钮}
+    wait until page contains    ${用户群模板title}
+    ${text1}=    get text    ${用户群名称2}
+    click element    ${第二个ON/OFF开关}
+    click element    ${用户群确定按钮}
+    ${text2}=    execute javascript    return document.getElementById("${user_template_field}").value
+    should be equal    ${text1}    ${text2}
+    [Teardown]    close browser

@@ -1,0 +1,44 @@
+*** Settings ***
+Suite Teardown
+Resource          ../../config/公共资源.txt
+Resource          ../../config/预设用户公共资源.txt
+Resource          ../../VAR/JavaScript_element.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-009 验证推送方式-jpush-跳转活动地址-显示正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.推送方式选择-jpush-跳转活动地址
+    ...    【预期结果】：2.默认勾选跳转活动地址，输入框有灰色字体提示：输入活动地址
+    登录
+    到达预设用户推送页面
+    select from list by value    ${推送方式框}    jpush
+    wait until element is visible    ${输入活动地址}
+    ${text}    execute javascript    return document.getElementById("${jump_url}").placeholder
+    should be equal    ${text}    ${活动地址输入框默认文案}
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-010 验证推送方式-jpush-跳转活动地址-结果正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.推送方式选择-jpush-跳转主页，输入消息系统中的模板 NID
+    ...    3.其他内容填写完整，测试某个手机号
+    ...    【预期结果】：3.页面返回执行成功，jpush消息保存在messagenetty_mobp2p.t_jpush表中
+    登录
+    到达预设用户推送页面
+    select from list by value    ${推送方式框}    jpush
+    input text    ${输入活动地址}    ${活动地址}
+    ${phone}    create phone
+    input text    ${消息模板输入框}    ${消息NID}
+    input text    ${测试手机号输入框}    ${phone}
+    click element    ${测试发送按钮}
+    sleep    1
+    ${rsp}    数据库执行SQL    ${sql_host}    SELECT * FROM messagenetty_mobp2p.t_jpush WHERE phone=${phone}    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    log    ${rsp[0][19]}
+    should be equal    ${rsp[0][19]}    ${消息NID}
+    [Teardown]    close browser

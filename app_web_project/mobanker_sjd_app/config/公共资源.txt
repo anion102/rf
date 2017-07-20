@@ -1,0 +1,9 @@
+*** Settings ***
+Library           AppiumLibrary
+Library           ../Library/basic_fun.py
+Resource          ../MAP/入口元素.txt
+Resource          config.txt
+Resource          ../MAP/02登录.txt
+Resource          公共关键字.txt
+Resource          ../VAR/公用变量.txt
+Resource          ../MAP/01注册.txt

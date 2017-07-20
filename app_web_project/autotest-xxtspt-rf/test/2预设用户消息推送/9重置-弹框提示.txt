@@ -1,0 +1,68 @@
+*** Settings ***
+Suite Teardown    close browser
+Resource          ../../config/预设用户公共资源.txt
+Resource          ../../config/公共资源.txt
+Resource          ../../VAR/JavaScript_element.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-017 验证重置-弹框显示正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.各项填写完整
+    ...    3.点击 重置
+    ...    【预期结果】：
+    ...    3.弹出重置的弹框内容：重置清空将无法恢复，页面中含“确定”和“取消”按钮
+    登录
+    到达预设用户推送页面
+    ${rand}    create phone
+    ${data}    set variable    ${消息描述内容}${rand}
+    input text    ${消息描述输入框}    ${data}
+    选择用户群
+    sleep    1
+    input text    ${发送开始时间}    ${发送时间}
+    input text    ${发送结束时间}    ${结束时间}
+    sleep    1
+    click element    ${结束时间关闭按钮}
+    input text    ${消息模板输入框}    ${消息NID}
+    ${phone}    create phone
+    input text    ${测试手机号输入框}    ${phone}
+    sleep    1
+    click element    ${重置按钮}
+    wait until page contains element    ${重置弹框内容}    30
+    click element    ${重置弹框取消}
+    sleep    1
+    ${info1}=    execute javascript    return window.document.getElementById("${msg_field}").value
+    log    ${info1}
+    should be equal    ${info1}    ${data}
+    [Teardown]    close browser
+
+消息推送平台-预设用户消息推送-018 验证重置-弹框显示-确定-正确
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.各项填写完整
+    ...    3.点击 重置
+    ...    4.点击确定按钮
+    ...    【预期结果】：4.重置弹框消失，预设用户消息模板的内容清空
+    登录
+    到达预设用户推送页面
+    ${rand}    create phone
+    ${data}    set variable    ${消息描述内容}${rand}
+    input text    ${消息描述输入框}    ${data}
+    选择用户群
+    sleep    1
+    input text    ${发送开始时间}    ${发送时间}
+    input text    ${发送结束时间}    ${结束时间}
+    sleep    1
+    click element    ${结束时间关闭按钮}
+    input text    ${消息模板输入框}    ${消息NID}
+    ${phone}    create phone
+    input text    ${测试手机号输入框}    ${phone}
+    sleep    1
+    click element    ${重置按钮}
+    wait until page contains element    ${重置弹框内容}    30
+    click element    ${重置弹框确定}
+    ${info1}=    execute javascript    return window.document.getElementById("${msg_field}").placeholder
+    should be equal    ${info1}    15字以内
+    [Teardown]    close browser

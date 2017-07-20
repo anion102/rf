@@ -1,0 +1,10 @@
+*** Settings ***
+Resource          ../MAP/预设用户推送.txt
+Library           Selenium2Library
+
+*** Keywords ***
+选择用户群
+    click element    ${选择用户群按钮}
+    wait until page contains element    ${用户群列表第一个ON/OFF开关}
+    click element    ${用户群列表第一个ON/OFF开关}
+    click element    ${用户群确定按钮}

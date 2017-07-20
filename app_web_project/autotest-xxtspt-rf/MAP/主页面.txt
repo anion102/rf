@@ -1,0 +1,7 @@
+*** Variables ***
+${用户名输入框}         id=username
+${密码输入框}          id=password
+${登录按钮}           xpath=.//*[@id='loginForm']/div[2]/button
+${预设用户推送}         id=menuItem2
+${用户群设置}          id=menuItem1
+${消息任务列表}         id=menuItem4

@@ -1,0 +1,11 @@
+*** Variables ***
+${模板名称输入框}        id=tName
+${添加模板按钮}         id=toAddBtn
+${创建时间-开始时间}      id=createTimeStart
+${创建时间-结束时间}      id=createTimeEnd
+${查询按钮}           id=toSearchBtn
+${模板表格}           id=table
+${第一个模板-编辑按钮}     id=edit0    # id=edit111
+${第一个模板-删除按钮}     id=trash0
+${第一个模板-模板名称}     id=templateName0    # xpath=html/body/div[2]/section/section/div/div/table/tbody/tr[1]/td[3]
+${删除模板-确认按钮}      xpath=html/body/div[4]/div[2]/div/div[2]/button[2]

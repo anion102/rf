@@ -1,0 +1,21 @@
+*** Settings ***
+Suite Teardown    close browser
+Resource          ../../config/公共资源.txt
+Resource          ../../config/预设用户公共资源.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-006 验证推送方式下拉框内容正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.点击推送方式的下拉框，查看显示内容
+    ...    【预期结果】：2.推送方式下拉框默认全部，点击下拉框还有：jpush、短信、消息中心
+    登录
+    到达预设用户推送页面
+    ${values}    get list items    ${推送方式框}
+    log    ${values}
+    ${data}    set variable    jpush    短信    消息中心
+    should be equal    ${values[0]}    ${推送方式默认值}
+    should be equal    ${values}    ${data}
+    [Teardown]    close browser

@@ -1,0 +1,10 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          config.txt
+Resource          ../KW/公共关键字.txt
+Resource          ../MAP/主页面.txt
+Resource          ../VAR/VAR1.txt
+Resource          ../WorkFlow/到达待测页面.txt
+Resource          ../WorkFlow/登录.txt
+Library           ../Mobanker_Library/yhq_str_parse.py
+Library           ../Mobanker_Library/New_Phone_IdCard.py

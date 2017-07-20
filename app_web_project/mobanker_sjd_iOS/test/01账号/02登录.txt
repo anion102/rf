@@ -1,0 +1,17 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+
+*** Test Cases ***
+01正确用户登录
+    ${path}    relpath_to_abspath    ${APP}
+    启动APP    ${path}
+    wait until page contains element    ${me}
+    click element    ${me}
+    sleep    1
+    click element    ${my_info}
+    ${phone}    随机生成手机号
+    #    调用远程库或者第三方库获取注册用户    ${phone}    ${pwd}
+    input text    ${登录账号输入框}    ${phone}
+    input text    ${登录密码输入框}    ${pwd}
+    click element    ${登录按钮}
+    wait until page contains element    ${me}

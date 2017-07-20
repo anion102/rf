@@ -1,0 +1,7 @@
+*** Variables ***
+${remote_url}     http://127.0.0.1:4723/wd/hub
+${udid}           41
+${platform}       iOS
+${deviceName}     iphone 6s
+${version}        9.3
+${APP}            resource/MobileLoan-2.ipa

@@ -1,0 +1,7 @@
+*** Variables ***
+${REMOTE}         http://127.0.0.1:4725/wd/hub
+${APP}            resource/**.apk
+${udid}           111
+${platform}       android
+${deviceName}     meituM4
+${version}        4.4.4

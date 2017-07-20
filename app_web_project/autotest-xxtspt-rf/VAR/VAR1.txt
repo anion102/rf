@@ -1,0 +1,6 @@
+*** Variables ***
+${username}       admin
+${password}       123456
+${感叹号文案}          该描述仅供运营参考，不发送至用户
+${参照组百分比}         10
+${导入文件路径}         \\resource\\autotest.xlsx

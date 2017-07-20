@@ -1,0 +1,6 @@
+*** Variables ***
+${手机号输入框}         id=com.shcc.microcredit:id/phone_et
+${验证码输入框}         id=com.shcc.microcredit:id/code_et
+${发送验证码}          id=com.shcc.microcredit:id/auth_btn
+${注册密码输入框}        id=com.shcc.microcredit:id/resigter_password
+${注册按钮}           id=com.shcc.microcredit:id/commit

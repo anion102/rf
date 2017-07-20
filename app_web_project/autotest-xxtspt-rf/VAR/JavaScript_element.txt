@@ -1,0 +1,6 @@
+*** Variables ***
+${jump_url}       jumpUrl
+${msg_field}      msgCon
+${task_type}      taskType    # 推送类型框
+${push_type}      pushType    # 推送方式框id
+${user_template_field}    useTemplate    # 用户群模板输入框

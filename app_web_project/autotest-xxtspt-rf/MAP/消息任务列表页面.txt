@@ -1,0 +1,14 @@
+*** Variables ***
+${消息推送类型框}        id=taskType
+${推送方式框}          id=pushType    # 默认全部
+${消息列表总数}         xpath=//*[@id="table"]/tfoot/tr/td/nav/ul/li[1]/a/span    # 共***条数据 \
+${任务提交时间框}        id=begin_time
+${任务结束时间框}        id=end_time
+${查询按钮}           id=searchbtn
+${弹框内容}           id=alertMsg_info
+${弹框确定按钮}         id=alertMsg_btn1
+${操作人输入框}         id=username
+${消息表单}           xpath=//*[@id="table"]/tbody
+${消息任务列表第一个id}    xpath=//*[@id="openView"]
+${结束时间关闭按钮}       xpath=//*[@id="ui-datepicker-div"]/div[3]/button[2]
+${任务列表推送方式}       xpath=//*[@id="table"]/tbody/tr[1]/td[3]

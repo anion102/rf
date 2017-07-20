@@ -1,0 +1,5 @@
+*** Settings ***
+
+*** Variables ***
+${me}             id=com.shcc.microcredit:id/text_index_third
+${my_info}        id=com.shcc.microcredit:id/textView6

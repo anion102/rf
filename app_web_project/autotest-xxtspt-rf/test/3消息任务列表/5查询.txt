@@ -1,0 +1,193 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+Resource          ../../config/消息任务列表.txt
+Library           DateTime
+
+*** Test Cases ***
+消息推送平台-消息任务列表-009 验证消息类型-预设用户-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.消息类型选：预设用户，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的预设用户的消息
+    comment    预设用户推送类型查询
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    1
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND task_type=1    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-010 验证消息类型-名单导入-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.消息方类型：名单导入，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的名单导入的消息
+    comment    名单导入推送查询
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    2
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND task_type=2    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-011 验证消息类型-实时触发-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.消息方类型：实时触发，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的实时触发的消息
+    comment    实时推送类型查询
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    3
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND task_type=3    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-012 验证推送方式-jpush-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.推送方式：jpush，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的jpush的消息
+    comment    jpush推送方式查询
+    进入消息任务列表页面
+    select from list by value    ${推送方式框}    jpush
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND push_type='jpush'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-013 验证推送方式-短信-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.推送方式：短信，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的短信的消息
+    comment    短信推送方式查询
+    进入消息任务列表页面
+    select from list by value    ${推送方式框}    sms
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND push_type='sms'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-014 验证推送方式-消息中心-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.推送方式：消息中心，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是所有的消息中心的消息
+    comment    消息中心推送方式查询
+    进入消息任务列表页面
+    select from list by value    ${推送方式框}    sys
+    click element    ${查询按钮}
+    ${table}    get text    ${消息表单}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND push_type='sys'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    run keyword if    ${sql_data[0][0]}==0    should be equal    '${table}''    ''
+    ${number}=    run keyword unless    ${sql_data[0][0]}==0    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-015 验证任务提交时间-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.任务提交时间：开始和结束填写正确，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是开始和结束时间范围内的消息
+    comment    时间查询消息列表
+    进入消息任务列表页面
+    ${using}    数据库执行SQL    ${sql_host}    SELECT * FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 LIMIT 1    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    input text    ${任务提交时间框}    '${using[0][3]}'
+    ${time}    add time to date    ${using[0][3]}    1 days
+    ${str_time}    set variable    ${time}
+    input text    ${任务结束时间框}    ${str_time[0:19]}
+    click element    ${结束时间关闭按钮}
+    sleep    1
+    click element    ${查询按钮}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND create_time>='${using[0][3]}' AND create_time<='${str_time[0:19]}'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    log    ${sql_data[0][0]}
+    sleep    1
+    ${number}    get text    ${消息列表总数}
+    log    ${number}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-016 验证操作人-查询正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.操作人：填写存在的，其他条件不填写
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是该操作人提交的所有消息
+    comment    操作人查询消息列表
+    进入消息任务列表页面
+    ${using}    数据库执行SQL    ${sql_host}    SELECT * FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND operator_name IS NOT NULL LIMIT 1    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    input text    ${操作人输入框}    ${using[0][20]}
+    click element    ${查询按钮}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND operator_name='${using[0][20]}'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    sleep    1
+    ${number}    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-017 验证消息类型-推送方式-时间-操作人-筛选正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.消息类型-推送方式-时间-操作人 填写正确
+    ...    3.点击查询
+    ...    【预期结果】：1.结果是符合所有条件的信息
+    comment    消息类型-推送方式-时间-操作人查询消息列表
+    #    click element    ${消息任务列表}
+    进入消息任务列表页面
+    ${using}    数据库执行SQL    ${sql_host}    SELECT * FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND operator_name IS NOT NULL LIMIT 1    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    input text    ${任务提交时间框}    '${using[0][3]}'
+    ${time}    add time to date    ${using[0][3]}    1 days
+    ${str_time}    set variable    ${time}
+    input text    ${任务结束时间框}    ${str_time[0:19]}
+    select from list by value    ${消息推送类型框}    ${using[0][6]}
+    select from list by value    ${推送方式框}    ${using[0][10]}
+    input text    ${操作人输入框}    ${using[0][20]}
+    click element    ${查询按钮}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 AND task_type='${using[0][6]}' AND push_type='${using[0][10]}' AND operator_name='${using[0][20]}' AND create_time>='${using[0][3]}' AND create_time<='${str_time[0:19]}'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    sleep    1
+    ${number}    get text    ${消息列表总数}
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser

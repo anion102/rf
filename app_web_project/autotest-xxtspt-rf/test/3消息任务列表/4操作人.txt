@@ -1,0 +1,34 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+Resource          ../../config/消息任务列表.txt
+
+*** Test Cases ***
+消息推送平台-消息任务列表-007 验证操作人输入框可以为空
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.其他条件填写，操作人不填
+    ...    3.点击查询
+    ...    【预期结果】：1.能够根据条件给出查询结果，操作人可以为空
+    进入消息任务列表页面
+    click element    ${查询按钮}
+    ${number}    get text    ${消息列表总数}
+    ${sql_data}    数据库执行SQL    ${sql_host}    SELECT COUNT(*) FROM marketingmsg_mobp2p.t_message_task WHERE STATUS !=0 ORDER BY id DESC    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    comment    通过数据库测试页面数据默认显示全部正常消息
+    should be equal    '${sql_data[0][0]}'    '${number}'
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-008 验证操作人输入存在的-结果显示正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.其他条件填写，操作人写入存在的
+    ...    3.点击查询
+    ...    【预期结果】：1.能够根据条件给出查询结果，并且对应此操作人
+    进入消息任务列表页面
+    input text    ${操作人输入框}    阚利君
+    click element    ${查询按钮}
+    ${number}    get text    ${消息表单}
+    should be equal    '${number}'    ''
+    [Teardown]    close browser

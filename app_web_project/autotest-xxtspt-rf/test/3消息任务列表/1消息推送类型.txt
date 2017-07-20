@@ -1,0 +1,17 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+Resource          ../../config/消息任务列表.txt
+Resource          ../../VAR/JavaScript_element.txt
+
+*** Test Cases ***
+消息推送平台-消息任务列表-001 验证消息推送类型下拉框内容正确
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击消息推送类型框
+    ...    【预期结果】：1.默认显示全部，包括：预设用户、名单导入、实时触发
+    进入消息任务列表页面
+    ${types}    get list items    ${消息推送类型框}
+    ${actual}    set variable    全部    预设用户    名单导入    实时触发
+    should be equal    ${actual}    ${types}
+    [Teardown]    close browser

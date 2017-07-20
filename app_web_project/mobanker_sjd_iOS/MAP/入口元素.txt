@@ -1,0 +1,5 @@
+*** Settings ***
+
+*** Variables ***
+${me}             accessibility_id=我的
+${my_info}        accessibility_id=我的资料

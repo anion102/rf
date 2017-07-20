@@ -1,0 +1,13 @@
+*** Settings ***
+Resource          ../config/公共资源.txt
+
+*** Keywords ***
+用户登录
+    [Arguments]    ${phone}    ${pwd}
+    click element    ${me}
+    sleep    1
+    click element    ${my_info}
+    input text    ${登录账号输入框}    ${phone}
+    input text    ${登录密码输入框}    ${pwd}
+    click element    ${登录按钮}
+    wait until page contains element    ${me}

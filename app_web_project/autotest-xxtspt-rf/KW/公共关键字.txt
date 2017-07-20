@@ -1,0 +1,30 @@
+*** Settings ***
+Library           DatabaseLibrary
+Library           json
+Library           Collections
+Library           OperatingSystem
+
+*** Keywords ***
+数据库执行SQL
+    [Arguments]    ${mysql_url}    ${sql}    ${database}=mobp2p    ${mysql_port}=10000    ${mysql_username}=root    ${mysql_password}=chengce243
+    [Documentation]    默认端口10000
+    ...    默认用户名root
+    ...    默认密码 chengce243
+    log    ${mysql_url}
+    Connect To Database Using Custom Params    pymysql    database='${database}', user='${mysql_username}', password='${mysql_password}', host='${mysql_url}', port=${mysql_port},charset='utf8'
+    ${rst}    Query    ${sql}
+    log    ${rst}
+    [Return]    ${rst}
+
+数据库执行CALL
+    [Arguments]    ${mysql_url}    ${sql}    ${database}=mobp2p    ${mysql_port}=10000    ${mysql_username}=root    ${mysql_password}=chengce243
+    log    ${mysql_url}
+    Connect To Database Using Custom Params    pymysql    database='${database}', user='${mysql_username}', password='${mysql_password}', host='${mysql_url}', port=${mysql_port},charset='utf8'
+    log    ${sql}
+    Execute Sql String    ${sql}
+
+Json比对
+    [Arguments]    ${exp}    ${rsp}    ${type}=1
+    ${exp1}    json.Loads    ${exp}
+    Run Keyword If    ${type}==1    Dictionaries Should Be Equal    ${exp1}    ${rsp}
+    Run Keyword If    ${type}!=1    Dictionary Should Contain Sub Dictionary    ${rsp}    ${exp1}

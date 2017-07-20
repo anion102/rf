@@ -1,0 +1,6 @@
+*** Variables ***
+${登录页注册按钮}        accessibility_id=注册    # text
+${登录账号输入框}        xpath=//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIATextField[1]
+${登录密码输入框}        xpath=//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIASecureTextField[1]
+${登录按钮}           accessibility_id=登 录
+${忘记密码按钮}         accessibility_id=忘记密码?

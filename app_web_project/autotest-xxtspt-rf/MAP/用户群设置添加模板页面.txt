@@ -1,0 +1,49 @@
+*** Variables ***
+${选择产线-手机贷}       id=productType0
+${选择产线-U族}        id=productType1    # xpath=html/body/div[2]/div/div[1]/div/div/form/div[1]/div[1]/div[1]/label[2]/label[2]
+${选择产线-应花分期}      id=productType2    #xpath=html/body/div[2]/div/div[1]/div/div/form/div[1]/div[1]/div[1]/label[2]/label[3]
+${选择产线-卡宜贷}       id=productType3    #xpath=html/body/div[2]/div/div[1]/div/div/form/div[1]/div[1]/div[1]/label[2]/label[4]
+${选择产线-闪宜贷}       id=productType4    #xpath=html/body/div[2]/div/div[1]/div/div/form/div[1]/div[1]/div[1]/label[2]/label[5]
+${选择产品-单期贷}       id=product0
+${选择产品-分期贷}       id=product1
+${选择产品-闪电贷}       id=product2
+${选择产品-教育分期}      id=product0
+${选择产品-租房分期}      id=product1
+${选择产品-应花商城}      id=product2
+${选择产品-奢分期}       id=product3
+${选择产品-海尔家电分期}    id=product4
+${用户状态-下拉列表}      id=userStatus
+${行为次数-下拉列表}      id=actionCountType
+${当前可借额度-左}       id=loanLimitBegin
+${当前可借额度-右}       id=loanLimitEnd
+${固定额度-左}         id=fixedLimitBegin
+${固定额度-右}         id=fixedLimitEnd
+${借款金额-左}         id=loanAmountBegin
+${借款金额-左}         id=loanAmountEnd
+${选择行为节点-下拉列表}    id=actionNode
+${分期期数-下拉列表}      id=stagingNumber
+${时间范围-开始时间}      id=begin_time
+${时间范围-截止时间}      id=end_time
+${注册渠道-安卓}        id=registerChannel0
+${注册渠道-IOS}       id=registerChannel1
+${注册渠道-微站}        id=registerChannel2
+${注册渠道-流量超市}      id=registerChannel3
+${注册渠道-安卓-下拉列表}    id=rchannel0
+${注册渠道-IOS-下拉列表}    id=rchannel1
+${注册渠道-微站-下拉列表}    id=rchannel2
+${注册渠道-流量超市-下拉列表}    id=rchannel3
+${上次申请渠道-安卓}      id=lastApplyChannel0
+${上次申请渠道-IOS}     id=lastApplyChannel1
+${上次申请渠道-微站}      id=lastApplyChannel2
+${上次申请渠道-流量超市}    id=lastApplyChannel3
+${上次申请渠道-安卓-下拉列表}    id=lrchannel0
+${上次申请渠道-IOS-下拉列表}    id=lrchannel1
+${上次申请渠道-微站-下拉列表}    id=lrchannel2
+${上次申请渠道-流量超市-下拉列表}    id=lrchannel3
+${设置快速模板名称-输入框}    id=templateName
+${用户中设置为参照组的百分比-选择框}    id=percent
+${用户中设置为参照组的百分比-输入框}    id=userReferPercent
+${添加模板页-取消按钮}     id=artBtn
+${保存模板按钮}         id=addBtn
+${保存模板-提示框}       xpath=html/body/div[6]/div[2]/div/div[1]/div
+${保存模板-确定按钮}      xpath=html/body/div[6]/div[2]/div/div[2]/button

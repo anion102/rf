@@ -1,0 +1,11 @@
+*** Settings ***
+Resource          ../config/公共资源.txt
+
+*** Keywords ***
+登录
+    Open Browser    ${web_url}    firefox
+    Maximize Browser Window
+    wait until page contains element    ${用户名输入框}
+    Input Text    ${用户名输入框}    ${username}
+    Input Text    ${密码输入框}    ${password}
+    Click Element    ${登录按钮}

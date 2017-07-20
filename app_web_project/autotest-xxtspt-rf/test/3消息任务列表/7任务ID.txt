@@ -1,0 +1,202 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+Resource          ../../config/消息任务列表.txt
+
+*** Test Cases ***
+消息推送平台-消息任务列表-021 验证点击预设用户－jpush-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的预设用户推送-jpush任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是预设用户推送-jpush-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    add preset msg    ${service_ip}    jpush
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    1
+    select from list by value    ${推送方式框}    jpush
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${预设推送消息详情页标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-022 验证点击预设用户－短信-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的预设用户推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是预设用户推送-短信-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    add preset msg    ${service_ip}    sms
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    1
+    select from list by value    ${推送方式框}    sms
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${预设推送消息详情页标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-023 验证点击预设用户－消息中心-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的预设用户推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是预设用户推送-消息中心-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    add preset msg    ${service_ip}    sys
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    1
+    select from list by value    ${推送方式框}    sys
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${预设推送消息详情页标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-024 验证点击名单导入－jpush-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的名单导入推送-jpush任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-jpush-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    Insert Import List    ${service_ip}    jpush    ${EXECDIR}${导入文件路径}
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    2
+    select from list by value    ${推送方式框}    jpush
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${名单导入推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-025 验证点击名单导入－短信-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的名单导入推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-短信-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    Insert Import List    ${service_ip}    sms    ${EXECDIR}${导入文件路径}
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    2
+    select from list by value    ${推送方式框}    sms
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${名单导入推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-026 验证点击名单导入－消息中心-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的名单导入推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-消息中心-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    Insert Import List    ${service_ip}    sys    ${EXECDIR}${导入文件路径}
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    2
+    select from list by value    ${推送方式框}    sys
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${名单导入推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-027 验证点击实时触发推送－jpush-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的实时触发推送-jpush任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-jpush-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    save taskData    ${service_ip}    jpush
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    3
+    select from list by value    ${推送方式框}    jpush
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${实时推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-028 验证点击实时触发推送－短信-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的实时触发推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-短信-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    save taskData    ${service_ip}    sms
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    3
+    select from list by value    ${推送方式框}    sms
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${实时推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser
+
+消息推送平台-消息任务列表-029 验证点击实时触发推送－消息中心-任务ID－进入详情页面
+    [Documentation]    author=阚利君
+    ...    【前置条件】：1.进入消息任务列表页面
+    ...    【操作步骤】：1.进入消息任务列表页面
+    ...    2.点击已经存在的实时触发推送-短信-任务ＩＤ
+    ...    【预期结果】：1.进入该任务id的详情页面
+    ...    2.是名单导入推送-消息中心-的消息详情页面
+    ...    3.详情显示与设置的信息一致
+    save taskData    ${service_ip}    sys
+    进入消息任务列表页面
+    select from list by value    ${消息推送类型框}    3
+    select from list by value    ${推送方式框}    sys
+    click element    ${查询按钮}
+    wait until page contains element    ${消息任务列表第一个id}
+    ${type}=    get text    ${任务列表推送方式}
+    click element    ${消息任务列表第一个id}
+    sleep    1
+    page should contain    ${实时推送详情标题}
+    ${type1}    execute javascript    return document.getElementById('pushType').value
+    should be equal    ${type1}    ${type}
+    [Teardown]    close browser

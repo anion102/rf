@@ -1,0 +1,36 @@
+*** Settings ***
+Suite Teardown    close browser
+Resource          ../../config/公共资源.txt
+Resource          ../../config/预设用户公共资源.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-016 验证执行时-时间有效-的结果
+    [Documentation]    author=李增斌
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.各项填写完整，时间填写有正常
+    ...    3.点击执行
+    ...    【预期结果】：2.全部正常时提交推送任务，进入消息任务列表能够看到该任务详情（数据库表message_task中查看）
+    ...    3.弹框提示 执行成功，并在3秒后消失
+    登录
+    到达预设用户推送页面
+    ${rand}    create phone
+    ${data}    set variable    ${消息描述内容}${rand}
+    input text    ${消息描述输入框}    ${data}
+    选择用户群
+    sleep    1
+    input text    ${输入活动地址}    ${活动地址}
+    input text    ${发送开始时间}    ${发送时间}
+    input text    ${发送结束时间}    ${结束时间}
+    click element    ${结束时间关闭按钮}
+    input text    ${消息模板输入框}    ${消息NID}
+    ${phone}    create phone
+    input text    ${测试手机号输入框}    ${phone}
+    click element    ${执行按钮}
+    sleep    1
+    ${rsp}    数据库执行SQL    ${sql_host}    SELECT * FROM marketingmsg_mobp2p.t_message_task WHERE message_desc='${data}'    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    ${time}    convert to string    ${rsp[0][12]}
+    should be equal    ${time}    ${发送时间}
+    click element    ${重置弹框确定}
+    [Teardown]    close browser

@@ -1,0 +1,6 @@
+*** Variables ***
+${登录页注册按钮}        注册    # text
+${登录账号输入框}        id=com.shcc.microcredit:id/user_phone
+${登录密码输入框}        id=com.shcc.microcredit:id/user_password
+${登录按钮}           id=com.shcc.microcredit:id/login
+${忘记密码按钮}         id=com.shcc.microcredit:id/fgt_pwd

@@ -1,0 +1,4 @@
+*** Settings ***
+Resource          ../MAP/预设用户推送.txt
+Resource          ../VAR/预设用户推送.txt
+Resource          ../WorkFlow/预设用户推送.txt

@@ -1,0 +1,30 @@
+*** Settings ***
+Suite Teardown
+Resource          ../../config/预设用户公共资源.txt
+Resource          ../../config/公共资源.txt
+
+*** Test Cases ***
+消息推送平台-预设用户消息推送-011 验证推送方式-短信-执行结果正确
+    [Documentation]    author=阚利君
+    ...
+    ...    【前置条件】：1.登录后进入预设用户消息推送页面
+    ...    【操作步骤】：1.登录后进入预设用户消息推送页面
+    ...    2.推送方式选择-短信，输入消息系统中的模板NID
+    ...    3.其他填写正常，输入手机号测试发送
+    ...    【预期结果】：3.页面返回执行成功，短信信息保存在
+    ...    messagenetty_mobp2p.t_sms表中
+    登录
+    到达预设用户推送页面
+    select from list by value    ${推送方式框}    sms
+    input text    ${消息描述输入框}    ${消息描述内容}
+    选择用户群
+    sleep    1
+    ${phone}    create phone
+    input text    ${消息模板输入框}    ${消息NID}
+    input text    ${测试手机号输入框}    ${phone}
+    click element    ${测试发送按钮}
+    ${rsp}    数据库执行SQL    ${sql_host}    SELECT * FROM messagenetty_mobp2p.t_sms WHERE phone=${phone}    ${database}    ${sql_port}    ${sql_username}
+    ...    ${sql_password}
+    log    ${rsp[0][23]}
+    should be equal    ${rsp[0][23]}    ${消息NID}
+    [Teardown]    close browser

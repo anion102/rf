@@ -1,0 +1,9 @@
+*** Variables ***
+${web_url}        http://
+${sql_host}       93
+${database}       m
+${sql_port}       1
+${sql_username}    u
+${sql_password}    c
+${service_ip}     http://
+${file_path}      ../Resource/autotest.xlsx

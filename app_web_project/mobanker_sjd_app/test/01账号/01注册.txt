@@ -1,0 +1,22 @@
+*** Settings ***
+Resource          ../../config/公共资源.txt
+
+*** Test Cases ***
+01正确注册场景
+    ${path}    relpath_to_abspath    ${APP}
+    open application    ${REMOTE}    platformName=${platform}    deviceName=${deviceName}    app=${path}    appPackage=com.shcc.microcredit    appActivity=loadingActivity
+    ...    autoAcceptAlerts=true
+    sleep    3
+    click element    ${me}
+    sleep    2
+    click element    ${my_info}
+    wait until page contains element    ${登录按钮}
+    click text    ${登录页注册按钮}
+    wait until page contains element    ${手机号输入框}
+    ${phone}    随机生成手机号
+    input text    ${手机号输入框}    ${phone}
+    click element    ${发送验证码}
+    sleep    2
+    input text    ${验证码输入框}    ${验证码}
+    input password    ${注册密码输入框}    ${pwd}
+    click element    ${注册按钮}
